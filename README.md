@@ -1,8 +1,23 @@
-## Add In Rom
+## Build with AOSP
 
-Add This Line In device.mk
+Add this line in `device.mk` or `<rom>_<product>.mk`
 
-$(call inherit-product, vendor/bcr/bcr.mk)
+```
+PRODUCT_PACKAGES += \
+  BasicCallRecorder
+```
+
+Then import the namespace, eg:
+
+> Android.bp (in device tree)
+```
+soong_namespace {
+    imports: [
+        "vendor/bcr",
+    ],
+}
+```
+> `PRODUCT_SOONG_NAMESPACES +=` may also be in use, but in the future you should be using Android.bp
 
 # Basic Call Recorder
 
@@ -11,7 +26,7 @@ $(call inherit-product, vendor/bcr/bcr.mk)
 
 ## Features
 
-* Supports Android 9 through 13
+* Supports Android 9 through 15
 * Supports output in various formats:
   * OGG/Opus - Lossy, smallest files, default on Android 10+
   * M4A/AAC - Lossy, smaller files, default on Android 9
@@ -37,4 +52,4 @@ As the name alludes, BCR intends to be a basic as possible. The project will hav
 
 ## Credits
 
-Thanks to [chenxiaolong](https://github.com/chenxiaolong) For Base Repo And [StudioKeys](https://github.com/StudioKeys) For Helping Me
+Thanks to [chenxiaolong](https://github.com/chenxiaolong) For Base Repo
