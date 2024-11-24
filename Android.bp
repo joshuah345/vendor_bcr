@@ -1,0 +1,42 @@
+soong_namespace {
+
+}
+
+android_app_import {
+	name: "BCR",
+	owner: "bcr",
+	apk: "prebuilts/product/priv-app/com.chiller3.bcr/bcr.apk",
+	certificate: "platform",
+	dex_preopt: {
+		enabled: false,
+	},
+	privileged: true,
+    product_specific: true,
+}
+
+prebuilt_etc_xml {
+    name: "privapp-permissions-com.chiller3.bcr.xml",
+    owner: "bcr",
+    src: "prebuilts/product/etc/permissions/privapp-permissions-com.chiller3.bcr.xml",
+    sub_dir: "permissions",
+    filename_from_src: true,
+    product_specific: true,
+}
+
+prebuilt_etc_xml {
+    name: "config-com.chiller3.bcr.xml",
+    owner: "bcr",
+    src: "prebuilts/product/etc/sysconfig/config-com.chiller3.bcr.xml",
+    sub_dir: "sysconfig",
+    filename_from_src: true,
+    product_specific: true,
+}
+
+phony {
+    name: "BasicCallRecorder",
+    required: [
+        "privapp-permissions-com.chiller3.bcr.xml",
+        "config-com.chiller3.bcr.xml",
+        "BCR",
+    ],
+}
